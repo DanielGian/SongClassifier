@@ -1,0 +1,23 @@
+Software Manual:
+
+The directory SongClassifier contains both the Organizer and Sorter Drivers along with the count.jar file. 
+
+To run the popularity ranker, enter the following command with a designated output path. 
+
+•	hadoop jar count.jar Organizer.Driver data.csv <output_file>
+
+To run the popularity sorter, enter the following command with the command line arguments being the output file from Organizer.Driver and a designated output path. 
+
+•	hadoop jar count.jar Sorter.Driver <Organizer.Driver_output_file> <output_file>
+
+The next command calls the python script normalize.py though pyspark using two arguments of the output file from Sorter.Driver and a designated output path.
+
+•	spark-submit normalize.py <Sorter.Driver_output_file> <output_file>
+
+This command calls the python script impact.py through pyspark using three arguments of the output file from output.py, the output file from normalize.py, and a designated output path. 
+
+•	spark-submit impact.py <output.py_output_file> <normalize.py_output_file>
+
+Finally, the weight.py script is run with the command line arguments of the output file from the impact.py script and a designated output path. 
+
+•	spark-submit weight.py <output.py_output_file> <normalize.py_output_file>
